@@ -5,6 +5,7 @@ import click
 from colorama import init
 from termcolor import colored
 from pyfiglet import Figlet
+import os
 
 
 class board():
@@ -37,7 +38,7 @@ class universe():
             if point != ():
                 self.data.seed_cell(*point)
 
-    def next(self):
+    def next(self, save_folder: Path):
         self.gen += 1
         new = board(self.x, self.y)
 
@@ -60,8 +61,9 @@ class universe():
                     new.seed_cell(i, j)
 
         self.data = new
+        plt.axis('off')
         plt.imshow(self.data.state, cmap='summer')
-        plt.savefig(f'{self.gen}.png', bbox_inches='tight')
+        plt.savefig(Path(os.path.join(save_folder,f"{self.gen}.png")), bbox_inches='tight', pad_inches=0)
 
 
 @click.group(
@@ -85,7 +87,7 @@ def cli(ctx):
 @click.argument("Y", type=click.INT)
 @click.option("-g", "--generations", type=click.INT, help="Generations to run")
 @click.option("-p", "--pattern", type=Path, help="Initial pattern file")
-@click.option("-o", "--output", help="Output image folder")
+@click.option("-o", "--output", type=Path, default="./", help="Output image folder")
 # @click.option("-a", "--animate", is_flag=True, help="Generate a gif")
 def generate(x,y,pattern,output,generations):
     '''
@@ -119,17 +121,20 @@ def generate(x,y,pattern,output,generations):
                """)
     field = universe(x,y)
     field.load_pattern(pat)
+
+    if not os.path.exists(output):
+        os.mkdir(output)
+
     if not generations:
         while True:
-            # check = click.prompt(colored(f"{field.gen}?", "blue"),prompt_suffix="")
             check = input(colored(f"{field.gen}?", "blue"))
             if check == "q":
                 quit()
-            field.next()
+            field.next(Path(output))
     else:
         with click.progressbar(range(generations)) as bar:
             for x in bar:
-                field.next()
+                field.next(Path(output))
 
 
 if __name__ == "__main__":
