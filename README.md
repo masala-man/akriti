@@ -1,4 +1,4 @@
-#🍄 shrigma
+# 🍄 shrigma
 
 Generate patterns with modified Game of Life rules.
 
