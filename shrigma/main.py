@@ -1,8 +1,6 @@
-import matplotlib
 from pathlib import Path
 import matplotlib.pyplot as plt
 import click
-from colorama import init
 from termcolor import colored
 from pyfiglet import Figlet
 import os
@@ -31,7 +29,6 @@ class universe():
         self.y = y
         self.data = board(x, y)
         self.gen = 0
-        self.pop = 0
 
     def load_pattern(self, pattern):
         for point in pattern:
@@ -88,8 +85,8 @@ def cli(ctx):
 @click.option("-g", "--generations", type=click.INT, help="Generations to run")
 @click.option("-p", "--pattern", type=Path, help="Initial pattern file")
 @click.option("-o", "--output", type=Path, default="./", help="Output image folder")
-# @click.option("-a", "--animate", is_flag=True, help="Generate a gif")
-def generate(x,y,pattern,output,generations):
+@click.option("-a", "--animate", is_flag=True, help="Generate a gif")
+def generate(x,y,pattern,output,generations,animate):
     '''
     Run a simulation for a certain number of generations.
 
@@ -135,6 +132,9 @@ def generate(x,y,pattern,output,generations):
         with click.progressbar(range(generations)) as bar:
             for x in bar:
                 field.next(Path(output))
+
+    if animate:
+        os.system(f"convert -delay 20 -loop 0 $(ls -1v {os.path.abspath(output)}/*.png) {os.path.abspath(output)}/animated.gif")
 
 
 if __name__ == "__main__":
