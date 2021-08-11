@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
 	long_description = fh.read()
 
 setuptools.setup(
-	name='shrigma',
+	name='akriti',
 	version='0.1.0',
 	author="Ayush Shenoy",
 	author_email="masala_man@protonmail.com",
 	description="Generate patterns with modified Game of Life rules",
 	long_description=long_description,
 	long_description_content_type="text/markdown",
-	url="https://github.com/masala-man/shrigma",
+	url="https://github.com/masala-man/akriti",
 	packages=setuptools.find_packages(),
 	install_requires=[
         "click==8.0.1",
@@ -41,7 +41,7 @@ setuptools.setup(
 	python_requires='>=3.6',
 	entry_points={
 		'console_scripts': [
-			'shrigma = shrigma.main:cli',
+			'akriti = akriti.main:cli',
 		],
 	}
 )

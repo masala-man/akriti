@@ -73,8 +73,8 @@ def cli(ctx):
 	'''
 	if ctx.invoked_subcommand is None:
 		fig = Figlet(font="slant")
-		click.echo(colored(fig.renderText("shrigma"), "red", attrs=["bold"]))
-		click.echo("shrigma v0.1.0\nGenerate patterns with modified Game of Life rules")
+		click.echo(colored(fig.renderText("akriti"), "red", attrs=["bold"]))
+		click.echo("akriti v0.1.0\nGenerate patterns with modified Game of Life rules")
 	else:
 		pass
 

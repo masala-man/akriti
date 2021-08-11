@@ -1,11 +1,11 @@
-#🍄 shrigma
+# akriti
 
 Generate patterns with modified Game of Life rules.
 
 ## Usage
 
 ```
-Usage: shrigma generate [OPTIONS] X Y
+Usage: akriti generate [OPTIONS] X Y
 
   Run a simulation for a certain number of generations.
 
